@@ -163,7 +163,8 @@ body {
 
 	function loadJSON(){
 		console.log("Running")
-		$.getJSON('http://localhost:8000/art.json', function(data) {
+		// $.getJSON('http://localhost:8000/art.json', function(data) {
+		$.getJSON('https://roccity.art/art.json', function(data) {
 
 			all_art_dict = data
 			setupMarkers();
