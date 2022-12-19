@@ -1,1 +1,241 @@
-<b> Hello! </b>
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Rochester City Art</title>
+
+   <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />
+
+    <script
+      src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""
+    ></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<style>
+
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+#map {
+    width: 100vw;
+    height: 95vh;
+}
+
+
+.leaflet-tile {
+/*    filter: hue-rotate(45deg) !important;*/
+/*color:red;*/
+}
+
+#bottomBar {
+	bottom: 0px;
+	margin: 0px;
+	position: absolute;
+	height: 5vh;
+	width: 100vw;
+	background-color: #31445F;
+}
+
+#bottomBar *{
+	display: inline-block;
+}
+
+#rightbox{
+/*	right: 0px;
+	position: absolute;*/
+	position: relative;
+	margin-left: 60px;
+	margin-right: 5px;
+	float: right;
+}
+
+#infoBox {
+	max-height: 400px;
+	overflow: scroll;
+	background-color: rgba(7, 62, 137, 0.7);
+	position: absolute;
+	z-index: 1000;
+	right: 0px;
+	margin-right: 20px;
+	margin-top: 20px;
+	width: 500px;
+	display: none;
+}
+
+
+#infoBox a,b,i,p,h2, h4 {
+	color: rgb(255, 245, 238);
+}
+
+#photoTitle {
+	margin-left: 10px;
+}
+
+#photolocation{
+	margin-left: 10px;
+}
+
+
+#bottomBar{
+	background-color: #895207;	
+}
+
+
+
+#creditsBox{
+	z-index: 2000;
+	position: absolute;
+	margin-left: 25vw;
+	width: 50vw;
+	height: 80vh;
+	top: 10vh;
+	background-color: #31445F;
+	display: none;
+}
+
+</style>
+
+</head>
+
+<body onload="loadJSON()">
+	<div id="infoBox">
+		
+
+		<img src="close.png" onclick="closeInfoBox()" style="height:50px; position:relative; float: right; margin-top: 5px; margin-right: 5px; color: rgb(255, 245, 238);"> 
+		<div> <h2 id="photoTitle">Title here</h2> </div>
+		<h4 ><i id="photolocation">A street</i></h4>
+		<img id="photoImage" src="" style="width: 50%; margin-left:5px">
+	</div>
+
+
+    <div id="map"></div>
+    
+
+    <div id="bottomBar">
+
+		<a href="http://rochestermade.com" title="Rochester Made" style="width: 250px; float: left; margin-left: 5px;"><img src="http://rochestermade.com/media/images/rochester-made-dark-on-light.png" alt="Rochester Made" title="Rochester Made" style="height: 4vh; width: auto;" /></a>
+
+
+
+		<p onclick="showCredits()">Credits</p>
+    	
+    	<div id=rightbox><p style="margin:0px; padding:0px;">Built by <a href="http://jspann.me">James Spann</a></p> </div>
+    </div>
+
+
+    <div id="creditsBox">
+			<img src="close.png" onclick="hideCredits()" style="height:50px; position:relative; float: right; margin-top: 5px; margin-right: 5px; color: rgb(255, 245, 238);"> 
+    	<h2 id="">Credits</h2>
+    	<ul>
+    		<li><a href="https://www.flaticon.com/free-icons/close" title="close icons" style="color:white">Close icons created by ariefstudio - Flaticon</a></li>
+    		<li><a href="https://jquery.com/"  style="color:white">jquery 3.6.1</a></li>
+    		<li><a href="http://leafletjs.com"  style="color:white">Leaflet JS</a></li>
+
+
+    	</ul>
+    </div>
+
+<script>
+
+	var all_art_dict;
+
+    var map = L.map('map',{
+		center: [43.1566, -77.6088],
+		zoom: 15
+    });
+
+    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // }).addTo(map);
+
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    }).addTo(map);
+
+
+	function loadJSON(){
+		console.log("Running")
+		$.getJSON('http://localhost:8000/art.json', function(data) {
+
+			all_art_dict = data
+			setupMarkers();
+		});
+
+
+	}
+
+
+function showInfoBox(arttitle, artlocation, artimgurl){
+	document.getElementById("infoBox").style.display = "block";
+
+
+	if (arttitle == "") {
+		document.getElementById("photoTitle").innerHTML = "<i>Untitled</i>";
+	} else {
+		document.getElementById("photoTitle").innerHTML = arttitle;
+	}
+	document.getElementById("photolocation").innerHTML = artlocation;
+	document.getElementById("photoImage").src = artimgurl
+
+
+
+}
+
+function markerClickHandler(mark){
+	console.log("mark");
+	console.log(mark);
+
+	console.log(all_art_dict);
+	var curr_marker = all_art_dict["Arts"][mark.target.markArtID]
+	
+	showInfoBox(curr_marker["Name"],
+		curr_marker["LocationTitle"],
+		curr_marker["ImageURL"]);
+
+}
+
+function setupMarkers(){
+	
+	console.log(all_art_dict);
+	    all_arts = all_art_dict["Arts"]
+	    for (var i = all_arts.length - 1; i >= 0; i--) {
+	    	
+	    	
+	    	var marker = L.marker([all_arts[i]["LocationLat"], all_arts[i]["LocationLon"]])
+	    	marker.markArtID = i
+	    	marker.addTo(map);
+			marker.on('click', markerClickHandler);
+
+	    }
+	
+
+	
+}
+
+function closeInfoBox() {
+	document.getElementById("infoBox").style.display = "none";
+}
+
+
+function showCredits() {
+	document.getElementById("creditsBox").style.display = "block";
+}
+
+function hideCredits() {
+	document.getElementById("creditsBox").style.display = "none";
+}
+
+	
+</script>
+
+</body>
+
+</html>
