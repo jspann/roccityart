@@ -31,6 +31,32 @@
 			"LocationLat": 43.159914,
 			"LocationLon": -77.609428,
 			"ImageURL": "http://roccity.art/photos/saintPaul-1.jpg"
+		},
+
+
+		{
+			"Name": "",
+			"LocationTitle": "Center City",
+			"LocationLat": 43.15819,
+			"LocationLon": -77.59933,
+			"ImageURL": "http://roccity.art/photos/flour_city_love.jpg"
+		},
+
+		{
+			"Name": "",
+			"LocationTitle": "Center City",
+			"LocationLat": 43.14064,
+			"LocationLon": -77.56756,
+			"ImageURL": "http://roccity.art/photos/big_round_thing.jpg"
+		},
+
+		{
+			"Name": "",
+			"LocationTitle": "",
+			"LocationLat": 43.14827,
+			"LocationLon": -77.57780,
+			"ImageURL": "http://roccity.art/photos/side_thing_park_ave.jpg"
 		}
+		
 	]
 }

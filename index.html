@@ -17,6 +17,9 @@
     ></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+<link rel="stylesheet" href="./site.css">
+
+
 <style>
 
 body {
@@ -35,18 +38,6 @@ body {
 /*color:red;*/
 }
 
-#bottomBar {
-	bottom: 0px;
-	margin: 0px;
-	position: absolute;
-	height: 5vh;
-	width: 100vw;
-	background-color: #31445F;
-}
-
-#bottomBar *{
-	display: inline-block;
-}
 
 #rightbox{
 /*	right: 0px;
@@ -84,22 +75,6 @@ body {
 }
 
 
-#bottomBar{
-	background-color: #895207;	
-}
-
-
-
-#creditsBox{
-	z-index: 2000;
-	position: absolute;
-	margin-left: 25vw;
-	width: 50vw;
-	height: 80vh;
-	top: 10vh;
-	background-color: #31445F;
-	display: none;
-}
 
 </style>
 
@@ -112,7 +87,7 @@ body {
 		<img src="close.png" onclick="closeInfoBox()" style="height:50px; position:relative; float: right; margin-top: 5px; margin-right: 5px; color: rgb(255, 245, 238);"> 
 		<div> <h2 id="photoTitle">Title here</h2> </div>
 		<h4 ><i id="photolocation">A street</i></h4>
-		<img id="photoImage" src="" style="width: 50%; margin-left:5px">
+		<img id="photoImage" src="" style="width: 75%; margin-left:5px">
 	</div>
 
 
@@ -122,12 +97,10 @@ body {
     <div id="bottomBar">
 
 		<a href="http://rochestermade.com" title="Rochester Made" style="width: 250px; float: left; margin-left: 5px;"><img src="http://rochestermade.com/media/images/rochester-made-dark-on-light.png" alt="Rochester Made" title="Rochester Made" style="height: 4vh; width: auto;" /></a>
-
-
-
-		<p onclick="showCredits()">Credits</p>
+		
+		<!-- <a href="https://github.com/jspann/roccityart/">Project PAge</a> -->
     	
-    	<div id=rightbox><p style="margin:0px; padding:0px;">Built by <a href="http://jspann.me">James Spann</a></p> </div>
+    	<div id=rightbox><p style="margin:0px; padding:0px;" onclick="showCredits()">Credits</p> </div>
     </div>
 
 
@@ -141,6 +114,18 @@ body {
 
 
     	</ul>
+
+
+    	<p>The images are licensed under <a href="https://choosealicense.com/licenses/cc-by-sa-4.0/">CC-BY-4.0</a></p>
+
+    	<a href="https://github.com/jspann/roccityart">Project Page (with a TODO list of new features!)</a>
+    	<p style="margin:0px; padding:0px;">Built by <a href="http://jspann.me">James Spann</a></p> 
+
+
+
+    	<br>
+    	<br>
+    	<p style="margin:0px; padding:0px;"><a href="mailto:james@jspann.me">Send Feedback!</a></p> 
     </div>
 
 <script>
@@ -159,6 +144,7 @@ body {
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     }).addTo(map);
+
 
 
 	function loadJSON(){
@@ -227,6 +213,8 @@ function closeInfoBox() {
 
 
 function showCredits() {
+	// $("#creditsBox").slideDown();
+
 	document.getElementById("creditsBox").style.display = "block";
 }
 
