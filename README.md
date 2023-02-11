@@ -10,6 +10,6 @@ Since this is a community project, I hope to make as many things open and access
 
 ### Still to do
 
-[ ] Build a REST API for the locations and image data
-[ ] Build a toggleable Gallery View
-[ ] Build method for others to contribute locations and photos
+- [ ] Build a REST API for the locations and image data
+- [ ] Build a toggleable Gallery View
+- [ ] Build method for others to contribute locations and photos
