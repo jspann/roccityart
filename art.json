@@ -56,7 +56,33 @@
 			"LocationLat": 43.14827,
 			"LocationLon": -77.57780,
 			"ImageURL": "http://roccity.art/photos/side_thing_park_ave.jpg"
+		},
+
+		{
+			"Name": "",
+			"LocationTitle": "",
+			"LocationLat": 43.15049,
+			"LocationLon": -77.59050,
+			"ImageURL": "http://roccity.art/photos/would_rather_rochester.jpg"
+		},
+
+		{
+			"Name": "",
+			"LocationTitle": "",
+			"LocationLat": 43.15046,
+			"LocationLon": -77.59032,
+			"ImageURL": "http://roccity.art/photos/roc_flowers.jpg"
+		},
+
+		{
+			"Name": "",
+			"LocationTitle": "",
+			"LocationLat": 43.15218,
+			"LocationLon": -77.60603,
+			"ImageURL": "http://roccity.art/photos/bird_1.jpg"
 		}
+		
+
 		
 	]
 }
