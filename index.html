@@ -95,6 +95,25 @@
 	height: 5vh;
 }
 
+#creditsBox{
+ 	z-index: 2000;
+ 	position: absolute;
+ 	margin-left: 25vw;
+ 	width: 50vw;
+ 	height: 80vh;
+ 	top: 10vh;
+ 	background-color: #31445F;
+ 	display: none;
+ }
+
+ .innercreditstext{
+ 	margin-left: 15px;
+ 	margin-right: 0px;
+ 	margin-top: 0px;
+ 	margin-bottom: 0px;
+ 	padding: 0px;
+ }
+
 </style>
 
 
@@ -256,16 +275,17 @@ function closeInfoBox() {
     	</ul>
 
 
-    	<p>The images are licensed under <a href="https://choosealicense.com/licenses/cc-by-sa-4.0/">CC-BY-4.0</a></p>
-
-    	<a href="https://github.com/jspann/roccityart">Project Page (with a TODO list of new features!)</a>
-    	<p style="margin:0px; padding:0px;">Built by <a href="http://jspann.me">James Spann</a></p> 
+    	<p class="innercreditstext">The images are free to use under <a href="https://choosealicense.com/licenses/cc-by-sa-4.0/">CC-BY-4.0</a></p>
+		<br>
+    	<p style="margin-top:5px" class="innercreditstext"><a href="https://github.com/jspann/roccityart">Project Page (with a TODO list of new features!)</a></p>
+    	
+    	<!-- <p class="innercreditstext">Built by <a href="http://jspann.me">James Spann</a></p>  -->
 
 
 
     	<br>
     	<br>
-    	<p style="margin:0px; padding:0px; margin-top:5px"><a href="mailto:james@jspann.me">Send Feedback!</a></p> 
+    	<p style="margin-top:5px" class="innercreditstext"><a href="mailto:james@jspann.me">Send Feedback!</a></p> 
     </div>
     
 </body>
