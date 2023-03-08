@@ -17,7 +17,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-	<link rel="stylesheet" href="./site.css">
+	<!-- <link rel="stylesheet" href="./site.css"> -->
 
 
 <style>
@@ -79,6 +79,14 @@
 	margin-left: 60px;
 	margin-right: 5px;
 	float: right;
+}
+
+#rightbox, a{
+	color: rgb(255, 245, 238);
+}
+
+#rightbox, p{
+	margin-right: 2em;
 }
 
 
@@ -185,7 +193,7 @@ function markerClickHandler(mark){
 
 function showCredits() {
 	// $("#creditsBox").slideDown();
-
+	closeInfoBox();
 
 	document.getElementById("creditsBox").style.display = "block";
 }
@@ -222,7 +230,10 @@ function closeInfoBox() {
 		<a href="http://rochestermade.com" title="Rochester Made" style="width: 250px; float: left; margin-left: 5px; margin-top:1vh;"><img src="http://rochestermade.com/media/images/rochester-made-dark-on-light.png" alt="Rochester Made" title="Rochester Made" style="height: 3vh; width: auto;" /></a>
 
 
-		<div id=rightbox><p style="margin:0px; padding:0px; margin-top:1vh;" onclick="showCredits()">Credits</p> </div>
+		<div id="rightbox" style="margin:0px; padding:0px; margin-top:1vh;">
+			<p style="margin:0px; padding:0px;margin-right: 1em;"><a href="http://api.roccity.art/docs">API Docs</a>
+</p>
+		 <p style="margin:0px; padding:0px; margin-right: 1em;" onclick="showCredits()">Credits</p> </div>
 	</div>
 
 
