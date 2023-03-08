@@ -3,8 +3,7 @@
 	<head>
 	<title>Rochester City Art</title>
 
-   <link
-      rel="stylesheet"
+   <link rel="stylesheet"
       href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
       crossorigin=""
@@ -15,38 +14,34 @@
       integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
       crossorigin=""
     ></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="./site.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="./site.css">
 
 
 <style>
 
-body {
-	margin: 0px;
-	padding: 0px;
-}
+	body {
+		margin: 0px;
+		padding: 0px;
+	}
 
-#map {
-    width: 100vw;
-    height: 95vh;
-}
+	#map {
+	    width: 100vw;
+	    height: 95vh;
+	}
+
+	.leaflet-tile {
+	/*    filter: hue-rotate(45deg) !important;*/
+	/*color:red;*/
+	}
 
 
-.leaflet-tile {
-/*    filter: hue-rotate(45deg) !important;*/
-/*color:red;*/
-}
+
+	img.huechange { filter: hue-rotate(120deg); }
 
 
-#rightbox{
-/*	right: 0px;
-	position: absolute;*/
-	position: relative;
-	margin-left: 60px;
-	margin-right: 5px;
-	float: right;
-}
 
 #infoBox {
 	max-height: 400px;
@@ -76,9 +71,137 @@ body {
 
 
 
+
+#rightbox{
+/*	right: 0px;
+	position: absolute;*/
+	position: relative;
+	margin-left: 60px;
+	margin-right: 5px;
+	float: right;
+}
+
+
+#bottomBar{
+	background-color: rgba(7, 62, 137, 1.0);
+	height: 5vh;
+}
+
 </style>
 
+
+
 </head>
+
+<script>
+
+	var all_art_dict;
+	var map;
+
+
+	function loadJSON(){
+		console.log("Running")
+		// $.getJSON('http://localhost:8000/art.json', function(data) {
+		$.getJSON('http://api.roccity.art/locations', function(data) {
+
+			all_art_dict = data
+			setupMarkers();
+		});
+
+
+	    map = L.map('map',{
+			center: [43.1566, -77.6088],
+			zoom: 15
+		});
+
+		L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+		}).addTo(map);
+
+	}
+
+
+function setupMarkers(){
+	
+	console.log(all_art_dict);
+	all_arts = all_art_dict["Results"]
+	for (var i = all_arts.length - 1; i >= 0; i--) {
+		
+		console.log(all_arts[i]["lat"]);
+		var marker = L.marker([all_arts[i]["lat"], all_arts[i]["lon"]])
+		marker.markArtID = i
+		marker.addTo(map);
+		marker.on('click', markerClickHandler);
+		// marker.on('click', showInfoBox);
+		
+
+		if(all_arts[i]["type"] == "Sculpture"){
+			marker._icon.classList.add("huechange");
+		}
+
+	}
+}
+
+function showInfoBox(arttitle, artlocation, artimgurl, artshortcode){
+	document.getElementById("infoBox").style.display = "block";
+
+
+	if (arttitle == "") {
+		document.getElementById("photoTitle").innerHTML = "<i>Untitled</i>";
+	} else {
+		document.getElementById("photoTitle").innerHTML = arttitle;
+	}
+	document.getElementById("photolocation").innerHTML = artlocation;
+	document.getElementById("photoImage").src = artimgurl
+
+	document.getElementById("problemlink").href = "mailto:hello@roccity.art?subject=Issue with "+artshortcode;
+	
+
+	
+
+
+}
+
+function markerClickHandler(mark){
+	console.log("mark");
+	console.log(mark);
+
+	console.log(all_art_dict);
+	// var curr_marker = all_art_dict["Arts"][mark.target.markArtID]
+	var curr_marker = all_art_dict["Results"][mark.target.markArtID]
+	
+	// showInfoBox(curr_marker["Name"],
+	// 	curr_marker["LocationTitle"],
+	// 	curr_marker["ImageURL"]);
+
+	var imageURL = "http://api.roccity.art/images/"+curr_marker["short_code"];
+
+	showInfoBox("Untitled",
+			"Unknown Artist",
+			imageURL, curr_marker["short_code"]);
+
+}
+
+
+function showCredits() {
+	// $("#creditsBox").slideDown();
+
+
+	document.getElementById("creditsBox").style.display = "block";
+}
+
+
+function hideCredits() {
+	document.getElementById("creditsBox").style.display = "none";
+}
+
+function closeInfoBox() {
+	document.getElementById("infoBox").style.display = "none";
+}
+
+
+</script>
+
 
 <body onload="loadJSON()">
 	<div id="infoBox">
@@ -88,23 +211,23 @@ body {
 		<div> <h2 id="photoTitle">Title here</h2> </div>
 		<h4 ><i id="photolocation">A street</i></h4>
 		<img id="photoImage" src="" style="width: 75%; margin-left:5px">
+
+		<a id="problemlink">Report a problem</a>
 	</div>
 
 
-    <div id="map"></div>
-    
+	<div id="map"></div>
 
-    <div id="bottomBar">
-
-		<a href="http://rochestermade.com" title="Rochester Made" style="width: 250px; float: left; margin-left: 5px;"><img src="http://rochestermade.com/media/images/rochester-made-dark-on-light.png" alt="Rochester Made" title="Rochester Made" style="height: 4vh; width: auto;" /></a>
-		
-		<!-- <a href="https://github.com/jspann/roccityart/">Project PAge</a> -->
-    	
-    	<div id=rightbox><p style="margin:0px; padding:0px;" onclick="showCredits()">Credits</p> </div>
-    </div>
+	<div id="bottomBar">
+		<a href="http://rochestermade.com" title="Rochester Made" style="width: 250px; float: left; margin-left: 5px; margin-top:1vh;"><img src="http://rochestermade.com/media/images/rochester-made-dark-on-light.png" alt="Rochester Made" title="Rochester Made" style="height: 3vh; width: auto;" /></a>
 
 
-    <div id="creditsBox">
+		<div id=rightbox><p style="margin:0px; padding:0px; margin-top:1vh;" onclick="showCredits()">Credits</p> </div>
+	</div>
+
+
+
+	    <div id="creditsBox">
 			<img src="close.png" onclick="hideCredits()" style="height:50px; position:relative; float: right; margin-top: 5px; margin-right: 5px; color: rgb(255, 245, 238);"> 
     	<h2 id="">Credits</h2>
     	<ul>
@@ -125,106 +248,9 @@ body {
 
     	<br>
     	<br>
-    	<p style="margin:0px; padding:0px;"><a href="mailto:james@jspann.me">Send Feedback!</a></p> 
+    	<p style="margin:0px; padding:0px; margin-top:5px"><a href="mailto:james@jspann.me">Send Feedback!</a></p> 
     </div>
-
-<script>
-
-	var all_art_dict;
-
-    var map = L.map('map',{
-		center: [43.1566, -77.6088],
-		zoom: 15
-    });
-
-    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    // }).addTo(map);
-
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-    }).addTo(map);
-
-
-
-	function loadJSON(){
-		console.log("Running")
-		// $.getJSON('http://localhost:8000/art.json', function(data) {
-		$.getJSON('https://roccity.art/art.json', function(data) {
-
-			all_art_dict = data
-			setupMarkers();
-		});
-
-
-	}
-
-
-function showInfoBox(arttitle, artlocation, artimgurl){
-	document.getElementById("infoBox").style.display = "block";
-
-
-	if (arttitle == "") {
-		document.getElementById("photoTitle").innerHTML = "<i>Untitled</i>";
-	} else {
-		document.getElementById("photoTitle").innerHTML = arttitle;
-	}
-	document.getElementById("photolocation").innerHTML = artlocation;
-	document.getElementById("photoImage").src = artimgurl
-
-
-
-}
-
-function markerClickHandler(mark){
-	console.log("mark");
-	console.log(mark);
-
-	console.log(all_art_dict);
-	var curr_marker = all_art_dict["Arts"][mark.target.markArtID]
-	
-	showInfoBox(curr_marker["Name"],
-		curr_marker["LocationTitle"],
-		curr_marker["ImageURL"]);
-
-}
-
-function setupMarkers(){
-	
-	console.log(all_art_dict);
-	    all_arts = all_art_dict["Arts"]
-	    for (var i = all_arts.length - 1; i >= 0; i--) {
-	    	
-	    	
-	    	var marker = L.marker([all_arts[i]["LocationLat"], all_arts[i]["LocationLon"]])
-	    	marker.markArtID = i
-	    	marker.addTo(map);
-			marker.on('click', markerClickHandler);
-
-	    }
-	
-
-	
-}
-
-function closeInfoBox() {
-	document.getElementById("infoBox").style.display = "none";
-}
-
-
-function showCredits() {
-	// $("#creditsBox").slideDown();
-
-	document.getElementById("creditsBox").style.display = "block";
-}
-
-function hideCredits() {
-	document.getElementById("creditsBox").style.display = "none";
-}
-
-	
-</script>
-
+    
 </body>
 
 </html>
