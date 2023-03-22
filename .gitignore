@@ -1,2 +1,6 @@
 *.HEIC
 .DS_Store
+*.py
+*.png
+*.jpeg
+*.jpg
