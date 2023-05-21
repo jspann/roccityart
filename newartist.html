@@ -31,7 +31,9 @@
 		<p style="margin-left: 20px; margin-right: 20px;">We're working on building a tool to highlight visual artists of all kinds in the Rochester, NY area! We want to use this site to help promote local artists, send them opportunities as they arise in the area, and give them a local profile to showcase their work!<span style="color:red; display:inline;"> If you are a musician or literator/writer, hang tight we're working updating the site to better serve those communities as well!</span> </p>
 		<br>
 
-		<form action="/add_new_artist" method="post" target="_blank">
+		<!-- <form action="/add_new_artist" method="post" target="_blank"> -->
+		<!-- <form action="http://api.roccity.art/add_new_artist" method="post" target="_blank"> -->
+			<form action="http://api.roccity.art/add_new_artist" method="post">
 			<div style="margin-left: 20px; margin-top: 15px;">
 				<label for="fname">First name<p style="color:red; display: inline-block;">*</p>  </label>
 				<input type="text" id="fname" name="fname" placeholder="Josephine" required><br><br>
