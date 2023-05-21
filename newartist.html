@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+
+	<style type="text/css">
+		* {
+			padding: 0px;
+			margin: 0px;
+		}
+
+		body{
+			background-color: #31445F;
+		}
+
+		#forminfo{
+			width: 50%;
+			margin-left: 25%;
+			padding-top: 3%;
+			margin-top: 1%;
+			background-color: white;
+		}
+	</style>
+</head>
+<body>
+	<div id="forminfo">
+		<h2>Create an Artist Profile</h2>
+		<br>
+		<p style="margin-left: 20px; margin-right: 20px;">We're working on building a tool to highlight visual artists of all kinds in the Rochester, NY area! We want to use this site to help promote local artists, send them opportunities as they arise in the area, and give them a local profile to showcase their work!<span style="color:red; display:inline;"> If you are a musician or literator/writer, hang tight we're working updating the site to better serve those communities as well!</span> </p>
+		<br>
+
+		<form action="/add_new_artist" method="post" target="_blank">
+			<div style="margin-left: 20px; margin-top: 15px;">
+				<label for="fname">First name<p style="color:red; display: inline-block;">*</p>  </label>
+				<input type="text" id="fname" name="fname" placeholder="Josephine" required><br><br>
+				
+				<label for="lname">Last name<p style="color:red; display: inline-block;">*</p>  </label>
+				<input type="text" id="lname" name="lname" placeholder="Tota" required><br><br>
+
+				<label for="lname">Instagram<p style="color:red; display: inline-block;">*</p>  </label>
+				<input type="text" id="igname" name="igname" placeholder="@username" required><br><br>
+
+				<label for="lname">Website/Portfolio (if you have one)</label>
+				<input type="text" id="websiteurl" name="websiteurl" placeholder="http://www.webite.com"><br><br>
+
+				<label for="lname">Professional Email (if you have one)<p style="color:red; display: inline-block;">*</p>  </label>
+				<input type="text" id="emailaddr" name="emailaddr" placeholder="email@website.com" required><br><br>
+
+				<!-- Types of Art -->
+				<!-- List from: https://en.wikipedia.org/wiki/List_of_art_media -->
+				<label for="arttype">Type of Art</label>
+				<select name="arttype" id="arttype">
+					<option value="Architecture">Architecture</option>
+					<option value="Carpentry">Carpentry</option>
+					<option value="Ceramics">Ceramics</option>
+					<option value="Drawing">Drawing</option>
+					<option value="Electronic">Electronic (Graphics, CGI, ...)</option>
+					<option value="Film">Film (Animation, Live action, Video art)</option>
+					<option value="Food">Food</option>
+					<option value="Glass">Glass (Glassblowing, Glass fusing)</option>
+					<option value="Installation">Installation</option>
+					<!-- <option value="Natural world">Natural world</option> -->
+					<option value="Painting">Painting</option>
+					<option value="PerformingArts">Performing arts (Dance, theater, etc)</option>
+					<option value="Photography">Photography</option>
+					<option value="Printmaking">Printmaking</option>
+					<option value="Sculpture">Sculpture</option>
+					<option value="Textiles">Textiles</option>
+				</select>
+				<br>
+				<br>
+
+				<label for="rocyear">Year you started making art<p style="color:red; display: inline-block;">*</p>  </label>
+				<input type="number" id="artstartyear" name="artstartyear" min="1900" max="2023" required>
+				<br>
+				<br>
+
+				<label for="rocyear">Year you came to Rochester<p style="color:red; display: inline-block;">*</p>  </label>
+				<input type="number" id="rocyear" name="rocyear" min="1900" max="2023" required>
+				<br>
+				<br>
+
+
+
+				<label for="userfeedback">Comments or resources you'd like access to as an artist in the area:</label><br>
+				<textarea id="userfeedback" name="userfeedback" rows="4" cols="50" placeholder="Artist in Residency opportunities, Gallery Openings, Networking events,...."></textarea>
+
+
+				<br>
+				<br>
+				<input type="submit" value="Submit">
+			</div>
+			<br>
+			<br>
+			<br>
+			<br>
+			<p style="margin-left:25%"> If you have any questions, please send an email to hello@roccity.art</p>
+		</form>
+	</div>
+	
+</body>
+</html>
