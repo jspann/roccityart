@@ -15,4 +15,6 @@ The documentation for the API is available on [api.roccity.art](http://api.rocci
 
 - [X] Build a REST API for the locations and image data
 - [ ] Build a toggleable Gallery View
-- [ ] Build method for others to contribute locations and photos
+- [ ] Build method for others to contribute locations, photos and alt-text descriptions (Open Collaboration)
+- [ ] Build community profiles
+- [ ] "Walking tour" feature to generate a walking route
